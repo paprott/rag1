@@ -7,3 +7,7 @@ Folders:
 
 Files:
 - Piosenki.xlsx: songs scrapped from https://www.tekstowo.pl
+
+Utils:
+- convert_song_txt_to_json.py
+- convert_song_excel_to_txt.py
