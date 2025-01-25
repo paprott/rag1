@@ -1,5 +1,8 @@
 # Songs Recommendation System
 
+Simpy run your Assistant:
+- chat.py
+
 Folders:
 - songs: songs texts as '.txt'
 - data: songs texts as '.json'
@@ -11,3 +14,5 @@ Files:
 Utils:
 - convert_song_txt_to_json.py
 - convert_song_excel_to_txt.py
+- update_vector_database_with_songs.py
+- models.py
