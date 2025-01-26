@@ -4,7 +4,7 @@ import re
 
 def main_loop():
     # Read the Excel file
-    workbook = openpyxl.load_workbook('Piosenki.xlsx')
+    workbook = openpyxl.load_workbook('Piosenki-2.xlsx')
     worksheet = workbook.active
 
     # Iterate through rows, skipping headers
@@ -19,7 +19,7 @@ def main_loop():
         # Generate filename from title
         filename = "songs/" + title.strip() + '.txt'
 
-        with open(filename, 'w') as f:
+        with open(filename, 'w', encoding='utf-8') as f:
             temp = title + "\n"
             temp = temp + author + "\n"
             
