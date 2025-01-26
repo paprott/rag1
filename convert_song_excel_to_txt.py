@@ -4,7 +4,7 @@ import re
 
 def main_loop():
     # Read the Excel file
-    workbook = openpyxl.load_workbook('Piosenki-2.xlsx')
+    workbook = openpyxl.load_workbook('Piosenki-1.xlsx')
     worksheet = workbook.active
 
     # Iterate through rows, skipping headers
