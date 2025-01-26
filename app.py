@@ -5,6 +5,7 @@ from langchain.chains import create_retrieval_chain
 from langchain_chroma import Chroma
 from models import Models
 import asyncio
+import time
 
 # Initialize the models
 models = Models()
@@ -51,6 +52,9 @@ if user_input:
         # Show a loading message
         response_placeholder.text("Processing your request... Please wait.")
 
+        # Measure the start time
+        start_time = time.time()
+
         # Asynchronous processing
         async def process_request():
             result = await retrieval_chain.ainvoke({"input": user_input})
@@ -59,12 +63,19 @@ if user_input:
         # Run the asynchronous processing
         result = asyncio.run(process_request())
 
+        # Measure the end time
+        end_time = time.time()
+
+        # Calculate the response time
+        response_time = end_time - start_time
+
         # Debugging: Print the result
         print(f"Result: {result}")
 
         # Ensure the result contains the expected keys
         if "answer" in result:
             response_placeholder.text(f"Assistant: {result['answer']}")
+            st.write(f"Response time: {response_time:.2f} seconds")
         else:
             response_placeholder.text("Assistant: No response generated.")
     except Exception as e:

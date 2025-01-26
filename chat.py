@@ -3,6 +3,7 @@ from langchain.chains.combine_documents import create_stuff_documents_chain
 from langchain.chains import create_retrieval_chain
 from langchain_chroma import Chroma
 from models import Models
+import time
 
 # Initialize the models
 models = Models()
@@ -38,7 +39,18 @@ def main():
         if query.lower() in ['q', 'quit', 'exit']:
             break
         
+                # Measure the start time
+        start_time = time.time()
+
         result = retrieval_chain.invoke({"input": query})
+
+               # Measure the end time
+        end_time = time.time()
+
+        # Calculate the response time
+        response_time = end_time - start_time
+        print((f"Response time: {response_time:.2f} seconds"))
+
         print("Assistant: ", result["answer"], "\n\n")
         
 # Run the main loop
