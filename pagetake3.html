@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Playlist Finder</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Roboto:wght@300;400;700&display=swap');
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(to bottom, #a1c4fd, #c2e9fb);
+            margin: 0;
+            padding: 0;
+            color: #2c3e50;
+        }
+
+        header {
+            background-color: #34495e;
+            color: white;
+            padding: 1em;
+            text-align: center;
+            font-family: 'Pacifico', cursive;
+            font-size: 2.5em;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        main {
+            padding: 2em;
+        }
+
+        section {
+            margin-bottom: 2em;
+        }
+
+        .info-section {
+            background: rgba(255, 255, 255, 0.8);
+            padding: 1.5em;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+            color: #34495e;
+        }
+
+        .search-section {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 1.5em;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+            color: #34495e;
+        }
+
+        input[type="text"] {
+            width: calc(100% - 20px);
+            padding: 12px;
+            border: 2px solid #34495e;
+            border-radius: 8px;
+            font-size: 16px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        button {
+            background: linear-gradient(to right, #6a11cb, #2575fc);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin-top: 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            background: linear-gradient(to right, #2575fc, #6a11cb);
+            transform: scale(1.05);
+        }
+
+        .results-section {
+            background: rgba(255, 255, 255, 0.85);
+            padding: 1.5em;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+            display: none;
+            color: #34495e;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            padding: 8px 0;
+            font-size: 1.2em;
+            border-bottom: 1px solid #ddd;
+        }
+
+        li:last-child {
+            border-bottom: none;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        Playlist Finder
+    </header>
+
+    <main>
+        <section class="info-section">
+            <h2>What Can You Do Here?</h2>
+            <p>This is a handy tool that helps you find playlists or songs based on a specific theme. Just type your request, and we'll do the rest!</p>
+        </section>
+
+        <section class="search-section">
+            <h2>Enter Your Request</h2>
+            <p>Example: "Find me songs about autumn and cats"</p>
+            <input type="text" id="userRequest" placeholder="Type your request here...">
+            <button onclick="submitRequest()">Search</button>
+        </section>
+
+        <section class="results-section" id="results">
+            <h2>Search Results</h2>
+            <ul id="resultsList"></ul>
+        </section>
+    </main>
+
+    <script>
+        function submitRequest() {
+            const userRequest = document.getElementById('userRequest').value;
+
+            if (!userRequest) {
+                alert('Please enter a request.');
+                return;
+            }
+
+            // Simulate sending the request to the backend
+            fetch('/search', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ query: userRequest }),
+            })
+                .then((response) => response.json())
+                .then((data) => {
+                    displayResults(data.songs);
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                    alert('Something went wrong. Please try again later.');
+                });
+        }
+
+        function displayResults(songs) {
+            const resultsSection = document.getElementById('results');
+            const resultsList = document.getElementById('resultsList');
+            
+            // Clear previous results
+            resultsList.innerHTML = '';
+
+            if (songs && songs.length > 0) {
+                songs.forEach((song) => {
+                    const listItem = document.createElement('li');
+                    listItem.textContent = song;
+                    resultsList.appendChild(listItem);
+                });
+
+                resultsSection.style.display = 'block';
+            } else {
+                resultsList.innerHTML = '<li>No results found.</li>';
+                resultsSection.style.display = 'block';
+            }
+        }
+    </script>
+</body>
+</html>
