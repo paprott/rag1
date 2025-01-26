@@ -4,6 +4,7 @@ from langchain.chains.combine_documents import create_stuff_documents_chain
 from langchain.chains import create_retrieval_chain
 from langchain_chroma import Chroma
 from models import Models
+import asyncio
 
 # Initialize the models
 models = Models()
@@ -20,31 +21,51 @@ vector_store = Chroma(
 # Define the chat prompt
 prompt = ChatPromptTemplate.from_messages(
     [
-        ("system", "You are a helpful assistant speaking only in polish language.You read feelings and suggest a song to improve your mood. Answer the question based only the data provided."),
+        ("system", "You are a helpful assistant speaking only in Polish language. You read feelings and suggest a song to improve your mood. Answer the question based only on the data provided."),
         ("human", "Use the user question {input} to answer the question. Use only the {context} to answer the question.")
     ]
 )
 
 # Define the retrieval chain
-retriever = vector_store.as_retriever(kwargs={"k": 10})
+retriever = vector_store.as_retriever(kwargs={"k": 1})
 combine_docs_chain = create_stuff_documents_chain(
     llm, prompt
 )
 retrieval_chain = create_retrieval_chain(retriever, combine_docs_chain)
 
 # Streamlit app
-st.title("Movie Recommendation Chat")
+st.title("Song Recommendation Chat")
 
 # Chat interface
-st.write("Tell me about your mood or what kind of movie you're looking for:")
+st.write("Tell me about your mood or what kind of song you're looking for:")
 user_input = st.text_input("You:")
+
+# Placeholder for the response
+response_placeholder = st.empty()
 
 if user_input:
     try:
         # Debugging: Print the user input
         print(f"User input: {user_input}")
 
-        result = retrieval_chain.invoke({"input": user_input})
-        st.write("Assistant:", result["answer"])
+        # Show a loading message
+        response_placeholder.text("Processing your request... Please wait.")
+
+        # Asynchronous processing
+        async def process_request():
+            result = await retrieval_chain.ainvoke({"input": user_input})
+            return result
+
+        # Run the asynchronous processing
+        result = asyncio.run(process_request())
+
+        # Debugging: Print the result
+        print(f"Result: {result}")
+
+        # Ensure the result contains the expected keys
+        if "answer" in result:
+            response_placeholder.text(f"Assistant: {result['answer']}")
+        else:
+            response_placeholder.text("Assistant: No response generated.")
     except Exception as e:
-        st.error(f"Error: {e}")
+        response_placeholder.error(f"Error: {e}")
