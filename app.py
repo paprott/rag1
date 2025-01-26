@@ -49,9 +49,6 @@ if user_input:
         # Debugging: Print the user input
         print(f"User input: {user_input}")
 
-        # Show a loading message
-        response_placeholder.text("Processing your request... Please wait.")
-
         # Measure the start time
         start_time = time.time()
 
@@ -74,7 +71,7 @@ if user_input:
 
         # Ensure the result contains the expected keys
         if "answer" in result:
-            response_placeholder.text(f"Assistant: {result['answer']}")
+            response_placeholder.markdown(f"Assistant: {result['answer']}")
             st.write(f"Response time: {response_time:.2f} seconds")
         else:
             response_placeholder.text("Assistant: No response generated.")
