@@ -19,13 +19,13 @@ vector_store = Chroma(
 # Define the chat prompt
 prompt = ChatPromptTemplate.from_messages(
     [
-        ("system", "You are a helpful assistant speaking only in polish language.You read feelings and suggest a song to improve your mood. Answer the question based only the data provided."),
+        ("system", "You are a helpful assistant speaking only in polish language.You read feelings and suggest a song to improve human mood. Answer the question based only the data provided."),
         ("human", "Use the user question {input} to answer the question. Use only the {context} to answer the question.")
     ]
 )
 
 # Define the retrieval chain
-retriever = vector_store.as_retriever(kwargs={"k": 10})
+retriever = vector_store.as_retriever(kwargs={"k": 3})
 combine_docs_chain = create_stuff_documents_chain(
     llm, prompt
 )
