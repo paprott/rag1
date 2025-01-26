@@ -28,7 +28,7 @@ prompt = ChatPromptTemplate.from_messages(
 )
 
 # Define the retrieval chain
-retriever = vector_store.as_retriever(kwargs={"k": 1})
+retriever = vector_store.as_retriever(kwargs={"k": 5})
 combine_docs_chain = create_stuff_documents_chain(
     llm, prompt
 )
@@ -65,6 +65,7 @@ if user_input:
 
         # Calculate the response time
         response_time = end_time - start_time
+        print(f"response_time: {response_time}")
 
         # Debugging: Print the result
         print(f"Result: {result}")
