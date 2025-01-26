@@ -12,5 +12,5 @@ class Models:
         self.model_ollama = ChatOllama(
             # model="llama3:8b",
             model="SpeakLeash/bielik-11b-v2.3-instruct:Q4_K_M",
-            temperature=0,
+            temperature=0
         )

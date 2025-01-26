@@ -14,4 +14,4 @@
 # Example: gradio my_app.py
 
 # pip install langchain_ollama
-docker-compose up -d
+docker compose up -d
