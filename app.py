@@ -28,7 +28,7 @@ prompt = ChatPromptTemplate.from_messages(
 )
 
 # Define the retrieval chain
-retriever = vector_store.as_retriever(kwargs={"k": 3})
+retriever = vector_store.as_retriever(kwargs={"k": 1})
 combine_docs_chain = create_stuff_documents_chain(
     llm, prompt
 )

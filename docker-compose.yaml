@@ -1,16 +1,5 @@
 services:
-  chroma:
-    image: chromadb/chroma
-    ports:
-      - "8000:8000"
-    volumes:
-      - chroma_data:/chroma/storage
-      - ./db/chroma_langchain_db:/db/chroma_langchain_db
-
   ollama:
     image: ollama/ollama
     ports:
       - "11434:11434"
-
-volumes:
-  chroma_data:
