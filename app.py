@@ -28,14 +28,14 @@ prompt = ChatPromptTemplate.from_messages(
 )
 
 # Define the retrieval chain
-retriever = vector_store.as_retriever(kwargs={"k": 5})
+retriever = vector_store.as_retriever(kwargs={"k": 3})
 combine_docs_chain = create_stuff_documents_chain(
     llm, prompt
 )
 retrieval_chain = create_retrieval_chain(retriever, combine_docs_chain)
 
 # Streamlit app
-st.title("Song Recommendation Chat")
+st.title("Vektor Tunes")
 
 # Chat interface
 st.write("Tell me about your mood or what kind of song you're looking for:")

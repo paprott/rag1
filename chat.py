@@ -26,7 +26,7 @@ prompt = ChatPromptTemplate.from_messages(
 )
 
 # Define the retrieval chain
-retriever = vector_store.as_retriever(kwargs={"k": 10})
+retriever = vector_store.as_retriever(kwargs={"k": 1})
 combine_docs_chain = create_stuff_documents_chain(
     llm, prompt
 )
@@ -39,12 +39,12 @@ def main():
         if query.lower() in ['q', 'quit', 'exit']:
             break
         
-                # Measure the start time
+        # Measure the start time
         start_time = time.time()
 
         result = retrieval_chain.invoke({"input": query})
 
-               # Measure the end time
+        # Measure the end time
         end_time = time.time()
 
         # Calculate the response time

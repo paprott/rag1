@@ -5,12 +5,12 @@ services:
       - "8000:8000"
     volumes:
       - chroma_data:/chroma/storage
-      - ./db/chroma_langchain_db:/db/chroma_langchain_db  # Ensure this matches the persist_directory in the script
+      - ./db/chroma_langchain_db:/db/chroma_langchain_db
 
   ollama:
     image: ollama/ollama
     ports:
-      - "8080:8080"
-      
+      - "11434:11434"
+
 volumes:
   chroma_data:

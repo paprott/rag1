@@ -13,5 +13,13 @@
 # Example: streamlit run my_app.py
 # Example: gradio my_app.py
 
-# pip install langchain_ollama
 docker compose up -d
+
+curl http://localhost:11434/api/pull -d '{
+  "model": "SpeakLeash/bielik-11b-v2.3-instruct:Q4_K_M" 
+}'
+curl http://localhost:11434/api/pull -d '{
+  "model": "mxbai-embed-large:latest"
+}'
+
+
