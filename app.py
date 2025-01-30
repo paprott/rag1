@@ -51,6 +51,7 @@ if user_input:
 
         # Measure the start time
         start_time = time.time()
+        print(f"Start time: {start_time}")
 
         # Asynchronous processing
         async def process_request():

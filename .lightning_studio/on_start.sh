@@ -13,13 +13,7 @@
 # Example: streamlit run my_app.py
 # Example: gradio my_app.py
 
-docker compose up -d
+curl -fsSL https://ollama.com/install.sh | sh
 
-curl http://localhost:11434/api/pull -d '{
-  "model": "SpeakLeash/bielik-11b-v2.3-instruct:Q4_K_M" 
-}'
-curl http://localhost:11434/api/pull -d '{
-  "model": "mxbai-embed-large:latest"
-}'
-
-
+ollama pull mxbai-embed-large:latest
+ollama pull SpeakLeash/bielik-11b-v2.3-instruct:Q4_K_M
